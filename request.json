@@ -1,0 +1,18 @@
+{
+    "query": [
+        {
+            "code": "Tiedot",
+            "selection": {
+                "filter": "item",
+                "values": ["Khk_yht_index", "Khk_yht_las_index"]
+            }
+        },
+        {
+            "code": "Vuosi",
+            "selection": {
+                "filter": "item",
+                "values": ["2010", "2018"]
+            }
+        }
+    ]
+}
