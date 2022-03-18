@@ -3,8 +3,8 @@ import json
 from textwrap import indent
 
 d = DataFetcher()
-historical = d.get_historical([2011, 2012, 2013])
-print(json.dumps(historical, indent=4))
+#historical = d.get_historical([2011, 2012, 2013])
+#print(json.dumps(historical, indent=4))
 
 print()
 print("==============================================================")
@@ -17,6 +17,33 @@ end_date = '2022-01-20T02:00:00.000'
 interval = 1
 table_variables = ['VAR_META.SO2_1', 'HYY_META.SO2168', 'KUM_META.SO_2']
 
-realtime = d.get_realtime(start_date, end_date, table_variables, interval, aggregation)
+#realtime = d.get_realtime(start_date, end_date, table_variables, interval, aggregation)
 
-print(json.dumps(realtime, indent=4))
+#print(json.dumps(realtime, indent=4))
+
+print(json.dumps(d.get_historical_options(), indent=4))
+"""
+structure:
+
+{
+    <name>:
+    {
+        'id': <station_id>,
+        'tables': 
+        {
+            <tablename>:
+            {
+                'id': <table_id>
+                'variables':
+                {
+                    'variable': 'id'
+                }
+            }
+        }
+
+    }
+}
+
+"""
+realtime_options = d.get_realtime_options()
+print(json.dumps(realtime_options, indent=4))
