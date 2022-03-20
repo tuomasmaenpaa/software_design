@@ -8,3 +8,5 @@ Libraries:
 requests
 json
 pathlib
+matplotlib
+pyqt5
