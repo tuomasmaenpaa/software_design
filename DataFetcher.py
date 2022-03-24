@@ -2,27 +2,15 @@ import requests
 import json
 from pathlib import Path
 import pandas as pd
+import numpy as np
 from io import StringIO
+
 
 
 class DataFetcher():
     def __init__(self):
         self.hist_options = self._init_hist_options()
         self.realtime_options = self._init_realtime_options()
-    
-    """ TODO
-            
-            data could be returned as JSON, format following
-            That would make data handling easier and uniform in model
-
-            {
-                data: [[data arrays]],
-                labels: [labels],
-                title: 'title'
-            }
-            
-            Not sure if title is necessary
-    """
 
     def _init_hist_options(self):
         """
@@ -95,7 +83,7 @@ class DataFetcher():
         headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
         res = requests.post(url, data=payload, headers=headers)
 
-        return json.loads(res.text)
+        return self._hist_to_dataframe(json.loads(res.text))
 
     def get_realtime(self, start_date, end_date, table_variables, interval, aggregation):
         """
@@ -163,7 +151,27 @@ class DataFetcher():
         """
         res = requests.get('https://pxnet2.stat.fi/PXWeb/api/v1/en/ymp/taulukot/Kokodata.px')
         return json.loads(res.text)
- 
+    
+    def _hist_to_dataframe(self, hist):
+        n_years = hist['size'][1]
+        categories = list(hist['dimension']['Tiedot']['category']['label'].keys())
+        years = list(hist['dimension']['Vuosi']['category']['label'].keys())
+        values = hist['value']
+
+        values = np.array(values)
+        values = np.reshape(values,(-1,n_years))
+
+        data = {}
+        data['Year'] = years
+
+        i = 0
+        for cat in categories:
+            data[cat] = values[i,:]
+            i += 1
+        
+        data = pd.DataFrame(data)
+        return data
+
     def get_historical_options(self):
         """
         Returns a dict containing the possible categories and timerange that the user can choose to view data from.
