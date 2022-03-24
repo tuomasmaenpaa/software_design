@@ -1,6 +1,7 @@
 from DataFetcher import DataFetcher
 import json
 from textwrap import indent
+import pandas as pd
 
 d = DataFetcher()
 #historical = d.get_historical([2011, 2012, 2013])
@@ -17,8 +18,8 @@ end_date = '2022-01-20T02:00:00.000'
 interval = 1
 table_variables = ['VAR_META.SO2_1', 'HYY_META.SO2168', 'KUM_META.SO_2']
 
-#realtime = d.get_realtime(start_date, end_date, table_variables, interval, aggregation)
-
+realtime = d.get_realtime(start_date, end_date, table_variables, interval, aggregation)
+print(realtime.head())
 #print(json.dumps(realtime, indent=4))
 
 print(json.dumps(d.get_historical_options(), indent=4))
