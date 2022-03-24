@@ -1,6 +1,9 @@
 import requests
 import json
 from pathlib import Path
+import pandas as pd
+from io import StringIO
+
 
 class DataFetcher():
     def __init__(self):
@@ -99,7 +102,7 @@ class DataFetcher():
         Returns a JSON of data from SMEAR based on the parameters
         """
 
-        url = 'https://smear-backend.rahtiapp.fi/search/timeseries?'
+        url = 'https://smear-backend.rahtiapp.fi/search/timeseries/csv?'
         url += 'aggregation=' + aggregation
         url += '&interval=' + str(interval)
         url += '&from=' + start_date
@@ -109,7 +112,15 @@ class DataFetcher():
             url += '&tablevariable=' + t_v
         res = requests.get(url)
 
-        return json.loads(res.text)
+        data = pd.read_csv(StringIO(res.text))
+        data['Datetime'] = pd.to_datetime(data[['Year','Month','Day','Hour','Minute','Second']])
+        data.drop(['Year','Month','Day','Hour','Minute','Second'], axis=1, inplace=True)
+
+        # Rearrange columns, Datetime first
+        cols = data.columns.tolist()
+        cols = cols[-1:] + cols[:-1]
+        data = data[cols]
+        return data 
     
     def _get_stations(self):
         """
