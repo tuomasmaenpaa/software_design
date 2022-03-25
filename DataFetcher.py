@@ -9,14 +9,14 @@ from io import StringIO
 
 class DataFetcher():
     def __init__(self):
-        self.hist_options = self._init_hist_options()
-        self.realtime_options = self._init_realtime_options()
+        self.hist_options = self.__init_hist_options()
+        self.realtime_options = self.__init_realtime_options()
 
-    def _init_hist_options(self):
+    def __init_hist_options(self):
         """
         Private function to be used in finding the historical data limits
         """
-        limits = self._get_historical_limits()
+        limits = self.__get_historical_limits()
 
         titles = limits['variables'][0]['valueTexts']
         keys = limits['variables'][0]['values']
@@ -40,24 +40,24 @@ class DataFetcher():
         options['timerange'] = years
         return options
 
-    def _init_realtime_options(self):
+    def __init_realtime_options(self):
         options = {}
 
-        stations = self._get_stations()
+        stations = self.__get_stations()
 
 
         for station, station_id in stations:
 
             options[station] = {'id': station_id}
             options[station]['tables'] = {}
-            tables = self._get_smear_station_tables(station_id)
+            tables = self.__get_smear_station_tables(station_id)
 
             for table, table_id in tables:
 
                 options[station]['tables'][table] = {'table_id': table_id}
                 options[station]['tables'][table]['variables'] = {}
                 
-                variables = self._get_smear_station_table_variables(station_id, table_id)
+                variables = self.__get_smear_station_table_variables(station_id, table_id)
 
                 for variable, variable_id in variables:
 
@@ -83,7 +83,7 @@ class DataFetcher():
         headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
         res = requests.post(url, data=payload, headers=headers)
 
-        return self._hist_to_dataframe(json.loads(res.text))
+        return self.__hist_to_dataframe(json.loads(res.text))
 
     def get_realtime(self, start_date, end_date, table_variables, interval, aggregation):
         """
@@ -110,7 +110,7 @@ class DataFetcher():
         data = data[cols]
         return data 
     
-    def _get_stations(self):
+    def __get_stations(self):
         """
         Returns a list of tuples (station, id) of all available SMEAR API stations
         """
@@ -120,7 +120,7 @@ class DataFetcher():
         stations = [(p[i]['name'], str(p[i]['id'])) for i in range(len(p)) ]
         return stations
 
-    def _get_smear_station_tables(self, station_id):
+    def __get_smear_station_tables(self, station_id):
         """
         Returns a list of tuples (name, id) of variable tables for station id
         """
@@ -132,7 +132,7 @@ class DataFetcher():
 
         return tables   
 
-    def _get_smear_station_table_variables(self, station_id, table_id):
+    def __get_smear_station_table_variables(self, station_id, table_id):
 
         """
         Returns a list of tuples (name, id) of variable tables for station id
@@ -141,18 +141,18 @@ class DataFetcher():
         res = requests.get(url)
         p = json.loads(res.text)
 
-        variables = [(p[i]['name'], str(p[i]['id'])) for i in range(len(p)) ]
+        variables = [(p[i]['name'], str(p[i]['id'])) for i in range(len(p))]
 
         return variables
  
-    def _get_historical_limits(self):
+    def __get_historical_limits(self):
         """
         Get the years and categories from which historical data can be used
         """
         res = requests.get('https://pxnet2.stat.fi/PXWeb/api/v1/en/ymp/taulukot/Kokodata.px')
         return json.loads(res.text)
     
-    def _hist_to_dataframe(self, hist):
+    def __hist_to_dataframe(self, hist):
         n_years = hist['size'][1]
         categories = list(hist['dimension']['Tiedot']['category']['label'].keys())
         years = list(hist['dimension']['Vuosi']['category']['label'].keys())
