@@ -7,7 +7,7 @@ from io import StringIO
 
 
 
-class DataFetcher():
+class DataFetcher:
     def __init__(self):
         self.hist_options = self.__init_hist_options()
         self.realtime_options = self.__init_realtime_options()
