@@ -1,0 +1,1 @@
+{"start_date": "2022-03-12T01:00:00.000", "end_date": "2022-03-12T02:00:00.000", "table_variables": ["VAR_META.SO2_1", "HYY_META.SO2168", "KUM_META.SO_2"], "interval": 30, "aggregation": "NONE"}

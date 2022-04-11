@@ -20,7 +20,13 @@ class Controller:
         
 
     def handle_historical(self, use_defaults=True, save_defaults=False):
-        pass
+
+
+        if use_defaults:
+            path = Path(__file__).parent / "realtime_default.json"
+            with open(path, 'r') as infile:
+                defaults = json.load(infile)
+                self.model.fetch_historical(defaults['years'], defaults['categories'])
     
     def save_historical_defaults(self, years, categories):
 
