@@ -69,7 +69,7 @@ class DataFetcher:
         """
         Returns a JSON of data from STATFI based on given parameters
         """
-        path = Path(__file__).parent / "request.json"
+        path = Path(__file__).parent / 'opt' / 'request.json'
 
         url = 'https://pxnet2.stat.fi/PXWeb/api/v1/en/ymp/taulukot/Kokodata.px'
         payload = open(path)
@@ -109,6 +109,11 @@ class DataFetcher:
         cols = cols[-1:] + cols[:-1]
         data = data[cols]
         data.set_index('Datetime', inplace=True)
+
+        # Fix column names
+        path = Path(__file__).parent / 'opt' / 'gases.json'
+        gases = json.load(open(path, 'r'))
+        data.rename(columns=gases, inplace=True)
         return data 
     
     def __get_stations(self):

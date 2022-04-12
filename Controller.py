@@ -11,7 +11,7 @@ class Controller:
     def handle_realtime(self, use_defaults=True, save_defaults=False):
 
         if use_defaults:
-            path = Path(__file__).parent / "realtime_default.json"
+            path = Path(__file__).parent / 'opt' / 'realtime_default.json'
             with open(path, 'r') as infile:
                 defaults = json.load(infile)
                 self.model.fetch_realtime(defaults['start_date'], 
@@ -23,7 +23,7 @@ class Controller:
     def handle_historical(self, use_defaults=True, save_defaults=False):
 
         if use_defaults:
-            path = Path(__file__).parent / "hist_default.json"
+            path = Path(__file__).parent / 'opt' / 'hist_default.json'
             with open(path, 'r') as infile:
                 defaults = json.load(infile)
                 self.model.fetch_historical(defaults['years'], defaults['categories'])
@@ -32,7 +32,7 @@ class Controller:
         """
         Save historical preferences to a file
         """
-        path = Path(__file__).parent / "hist_default.json"
+        path = Path(__file__).parent / 'opt' / 'hist_default.json'
         defaults = {}
         defaults['years'] = years
         defaults['categories'] = categories
@@ -48,7 +48,7 @@ class Controller:
         Save realtime preferences to a file 
         """
         
-        path = Path(__file__).parent / "realtime_default.json"
+        path = Path(__file__).parent / 'opt' / 'realtime_default.json'
         defaults = {}
         defaults['start_date'] = start_date
         defaults['end_date'] = end_date
