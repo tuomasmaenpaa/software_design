@@ -34,7 +34,7 @@ historical = d.get_historical([2011, 2012, 2013])
 print(historical.head())
 
 
-
+"""
 print()
 print("==============================================================")
 print()
@@ -51,7 +51,7 @@ print(realtime.head())
 #print(json.dumps(realtime, indent=4))
 
 ##print(json.dumps(d.get_historical_options(), indent=4))
-"""
+
 structure:
 
 {
@@ -112,6 +112,7 @@ def get_variable_titles(station_id, table_id, variable_id):
     }
 
 }
+
 """
 
 def form_tablevariable(table, variable):
