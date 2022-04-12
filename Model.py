@@ -12,7 +12,8 @@ class Model:
     def fetch_realtime(self, start_date, end_date, table_variables, interval, aggregation):
         data = self.datafetcher.get_realtime(start_date, end_date, table_variables, interval, aggregation)
         # TODO do something with the data, at the very least plot it in View
-
+        self.plot_realtime(data)
+        
     def fetch_historical(self, years, categories):
         data = self.datafetcher.get_historical(years, categories)
         # TODO do something with the data, at the very least plot it in View 
@@ -29,4 +30,9 @@ class Model:
 
         data.plot(ax=self.ui.graphWidget_2.canvas.ax)
         #self.ui.graphWidget.canvas.ax.plot([1,2,3,4],[1,2,3,4])
+        return
+
+    def plot_realtime(self, data: pd.DataFrame):
+        
+        data.plot(ax=self.ui.graphWidget.canvas.ax)
         return
