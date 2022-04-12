@@ -108,6 +108,7 @@ class DataFetcher:
         cols = data.columns.tolist()
         cols = cols[-1:] + cols[:-1]
         data = data[cols]
+        data.set_index('Datetime', inplace=True)
         return data 
     
     def __get_stations(self):
@@ -154,7 +155,8 @@ class DataFetcher:
     
     def __hist_to_dataframe(self, hist):
         n_years = hist['size'][1]
-        categories = list(hist['dimension']['Tiedot']['category']['label'].keys())
+        # TODO CHANCGED KEYS TO VALUES FOR CATEGORIES and index column to years
+        categories = list(hist['dimension']['Tiedot']['category']['label'].values())
         years = list(hist['dimension']['Vuosi']['category']['label'].keys())
         values = hist['value']
 
@@ -170,6 +172,7 @@ class DataFetcher:
             i += 1
         
         data = pd.DataFrame(data)
+        data.set_index('Year', inplace=True)
         return data
 
     def get_historical_options(self):

@@ -26,6 +26,6 @@ if __name__ == "__main__":
     controller = Controller(model)
 
 
-
+    controller.handle_historical(True, False)
     MainWindow.show()
     sys.exit(app.exec_())
