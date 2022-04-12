@@ -27,5 +27,6 @@ if __name__ == "__main__":
 
 
     controller.handle_historical(True, False)
+    controller.handle_realtime(True, False)
     MainWindow.show()
     sys.exit(app.exec_())
