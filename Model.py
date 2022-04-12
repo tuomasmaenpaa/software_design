@@ -2,6 +2,7 @@ from DataFetcher import DataFetcher
 from MainWindow import Ui_MainWindow
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Model:
     def __init__(self, datafetcher: DataFetcher, ui: Ui_MainWindow):
@@ -15,5 +16,17 @@ class Model:
     def fetch_historical(self, years, categories):
         data = self.datafetcher.get_historical(years, categories)
         # TODO do something with the data, at the very least plot it in View 
+        self.plot_historical(data)
 
-    # TODO 
+
+    def clean_data(self, df):
+        # Clear NaN's and null values from dataframe
+        return df
+
+    def plot_historical(self, data: pd.DataFrame):
+        # TODO Some data might contain values 100 or 1000 times larger than others,
+        #   making plots unreadable. Also the unit could be different so multiple y-axises needed?
+
+        data.plot(ax=self.ui.graphWidget_2.canvas.ax)
+        #self.ui.graphWidget.canvas.ax.plot([1,2,3,4],[1,2,3,4])
+        return

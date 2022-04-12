@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
-
+from datetime import datetime
+from PyQt5 import QtCore
 from Model import Model
 
 class Controller:
@@ -21,15 +22,16 @@ class Controller:
 
     def handle_historical(self, use_defaults=True, save_defaults=False):
 
-
         if use_defaults:
-            path = Path(__file__).parent / "realtime_default.json"
+            path = Path(__file__).parent / "hist_default.json"
             with open(path, 'r') as infile:
                 defaults = json.load(infile)
                 self.model.fetch_historical(defaults['years'], defaults['categories'])
     
     def save_historical_defaults(self, years, categories):
-
+        """
+        Save historical preferences to a file
+        """
         path = Path(__file__).parent / "hist_default.json"
         defaults = {}
         defaults['years'] = years
@@ -41,6 +43,10 @@ class Controller:
         
 
     def save_realtime_defaults(self, start_date, end_date, table_variables, interval, aggregation):
+
+        """
+        Save realtime preferences to a file 
+        """
         
         path = Path(__file__).parent / "realtime_default.json"
         defaults = {}
@@ -53,3 +59,12 @@ class Controller:
         with open(path, 'w') as outfile:
             json.dump(defaults, outfile)
     
+    def create_ISO_timestamp(self, date: QtCore.QDate):
+        """
+        Takes a QDate object and returns an ISO formatted timestamp for realtime API calls
+        """
+        year, month, day = date.getDate()
+        hour, minute, second, millisecond = 12, 0, 0, 0
+        iso_date = datetime(year, month, day, hour, minute, second, millisecond)
+        return iso_date.isoformat(timespec='milliseconds')
+        
