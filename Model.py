@@ -1,3 +1,4 @@
+from distutils.command.clean import clean
 from DataFetcher import DataFetcher
 from MainWindow import Ui_MainWindow
 import pandas as pd
@@ -12,16 +13,26 @@ class Model:
     def fetch_realtime(self, start_date, end_date, table_variables, interval, aggregation):
         data = self.datafetcher.get_realtime(start_date, end_date, table_variables, interval, aggregation)
         # TODO do something with the data, at the very least plot it in View
+
+        if data.empty:
+            return
+        data = self.clean_data(data)
         self.plot_realtime(data)
         
     def fetch_historical(self, years, categories):
         data = self.datafetcher.get_historical(years, categories)
         # TODO do something with the data, at the very least plot it in View 
+        
+        if data.empty:
+            return
+        data = self.clean_data(data)
         self.plot_historical(data)
 
 
-    def clean_data(self, df):
+    def clean_data(self, df: pd.DataFrame):
         # Clear NaN's and null values from dataframe
+        df.fillna(method='ffill', inplace=True)
+        df.fillna(method='bfill', inplace=True)
         return df
 
     def plot_historical(self, data: pd.DataFrame):
