@@ -9,8 +9,8 @@ from io import StringIO
 
 class DataFetcher:
     def __init__(self):
-        self.hist_options = self.__init_hist_options()
-        self.realtime_options = self.__init_realtime_options()
+        self.hist_options = {}#self.__init_hist_options()
+        self.realtime_options = {}#self.__init_realtime_options()
 
     def __init_hist_options(self):
         """
@@ -83,6 +83,9 @@ class DataFetcher:
         headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
         res = requests.post(url, data=payload, headers=headers)
 
+        if res.status_code != 200:
+            return pd.DataFrame()
+
         return self.__hist_to_dataframe(json.loads(res.text))
 
     def get_realtime(self, start_date, end_date, table_variables, interval, aggregation):
@@ -99,6 +102,10 @@ class DataFetcher:
         for t_v in table_variables:
             url += '&tablevariable=' + t_v
         res = requests.get(url)
+
+        # If request was faulty, return empty dataframe
+        if res.status_code != 200:
+            return pd.DataFrame()
 
         data = pd.read_csv(StringIO(res.text))
         data['Datetime'] = pd.to_datetime(data[['Year','Month','Day','Hour','Minute','Second']])
