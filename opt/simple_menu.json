@@ -12,60 +12,60 @@
         "id": "2",
         "variables": {
   
-            "CO\u2082 concentration 4.2 m": "HYY_META.CO242",
-            "NO\u2093 concentration 4.2 m": "HYY_META.NOx42",
-            "SO\u2082 concentration 4.2 m": "HYY_META.SO242"
+            "CO\u2082": "HYY_META.CO242",
+            "NO\u2093": "HYY_META.NOx42",
+            "SO\u2082": "HYY_META.SO242"
             
         }
     },
     "Kumpula": {
         "id": "3",
         "variables": {
-            "NO\u2093 concentration": "KUM_META.NO_x",
-            "SO\u2082 concentration": "KUM_META.SO_2",
-            "CO\u2082 concentration": "KUM_EDDY.av_c_ep"       
+            "NO\u2093": "KUM_META.NO_x",
+            "SO\u2082": "KUM_META.SO_2",
+            "CO\u2082": "KUM_EDDY.av_c_ep"       
         }
     },
     "Erottaja": {
         "id": "5",
         "variables": {
-            "CO\u2082 concentration": "ERO_EDDY.av_c_op"
+            "CO\u2082": "ERO_EDDY.av_c_op"
         }
     },
     "Torni": {
         "id": "6",
         "variables": {
-            "CO\u2082 concentration": "TOR_EDDY.av_c"
+            "CO\u2082": "TOR_EDDY.av_c"
         }
     },
     "Siikaneva 1": {
         "id": "7",
         "variables": {
-            "CO\u2082 concentration": "SII1_EDDY.av_c"
+            "CO\u2082": "SII1_EDDY.av_c"
         }
     },
     "Siikaneva 2": {
         "id": "8",
         "variables": {
-            "CO\u2082 concentration": "SII2_EDDY.av_c"
+            "CO\u2082": "SII2_EDDY.av_c"
         }
     },
     "Kuivaj\u00e4rvi": {
         "id": "9",
         "variables": {
-            "CO\u2082 concentration": "KVJ_EDDY.av_c_LI72"
+            "CO\u2082": "KVJ_EDDY.av_c_LI72"
         }
     },
     "Viikki": {
         "id": "12",
         "variables": {
-            "CO\u2082 concentration": "VII_EDDY.av_c"
+            "CO\u2082": "VII_EDDY.av_c"
         }
     },
     "Haltiala": {
         "id": "13",
         "variables": {
-            "CO\u2082 concentration": "HAL_EDDY.av_c"
+            "CO\u2082": "HAL_EDDY.av_c"
         }
     }
 }
