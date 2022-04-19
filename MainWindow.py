@@ -29,8 +29,6 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
 
-
-
         self.frame = QtWidgets.QFrame(self.tab)
         self.frame.setGeometry(QtCore.QRect(30, 80, 721, 61))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -40,7 +38,7 @@ class Ui_MainWindow(object):
         self.comboBox = CheckableComboBox(self.frame)
         self.comboBox.setGeometry(QtCore.QRect(20, 20, 104, 26))
         self.comboBox.setObjectName("comboBox")
-        #self.comboBox.addItem("")
+        self.comboBox.addItem("")
 
         self.stationLabel1 = QtWidgets.QLabel('Station', self.tab)
         self.stationLabel1.setObjectName("gasLabel1")
@@ -54,7 +52,7 @@ class Ui_MainWindow(object):
         self.comboBox_2 = CheckableComboBox(self.frame)
         self.comboBox_2.setGeometry(QtCore.QRect(140, 20, 104, 26))
         self.comboBox_2.setObjectName("comboBox_2")
-        #self.comboBox_2.addItem("")
+        self.comboBox_2.addItem("")
         self.dateEdit = QtWidgets.QDateEdit(self.frame)
         self.dateEdit.setGeometry(QtCore.QRect(300, 20, 110, 24))
         self.dateEdit.setObjectName("dateEdit")
@@ -88,11 +86,11 @@ class Ui_MainWindow(object):
         self.comboBox_3 = CheckableComboBox(self.frame_2)
         self.comboBox_3.setGeometry(QtCore.QRect(20, 20, 104, 26))
         self.comboBox_3.setObjectName("comboBox_3")
-        #self.comboBox_3.addItem("")
+        self.comboBox_3.addItem("")
         self.comboBox_4 = CheckableComboBox(self.frame_2)
         self.comboBox_4.setGeometry(QtCore.QRect(140, 20, 104, 26))
         self.comboBox_4.setObjectName("comboBox_4")
-        #self.comboBox_4.addItem("")
+        self.comboBox_4.addItem("")
         self.dateEdit_2 = QtWidgets.QDateEdit(self.frame_2)
         self.dateEdit_2.setDisplayFormat("yyyy")
         self.dateEdit_2.setGeometry(QtCore.QRect(300, 20, 110, 24))
@@ -126,11 +124,11 @@ class Ui_MainWindow(object):
         self.comboBox_5 = CheckableComboBox(self.frame_3)
         self.comboBox_5.setGeometry(QtCore.QRect(20, 20, 104, 26))
         self.comboBox_5.setObjectName("comboBox_5")
-        #self.comboBox_5.addItem("")
+        self.comboBox_5.addItem("")
         self.comboBox_6 = CheckableComboBox(self.frame_3)
         self.comboBox_6.setGeometry(QtCore.QRect(140, 20, 104, 26))
         self.comboBox_6.setObjectName("comboBox_6")
-        #self.comboBox_6.addItem("")
+        self.comboBox_6.addItem("")
         self.dateEdit_4 = QtWidgets.QDateEdit(self.frame_3)
         self.dateEdit_4.setGeometry(QtCore.QRect(300, 20, 110, 24))
         self.dateEdit_4.setObjectName("dateEdit_4")
@@ -221,10 +219,6 @@ class CheckableComboBox(QtWidgets.QComboBox):
         # Make the combo editable to set a custom text, but readonly
         self.setEditable(True)
         self.lineEdit().setReadOnly(True)
-        # Make the lineedit the same color as QPushButton
-        palette = app.palette()
-        palette.setBrush(QPalette.Base, palette.button())
-        self.lineEdit().setPalette(palette)
 
         # Use custom delegate
         self.setItemDelegate(CheckableComboBox.Delegate())
@@ -323,12 +317,12 @@ class CheckableComboBox(QtWidgets.QComboBox):
                 res.append(self.model().item(i).data())
         return res
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+    #app = QtWidgets.QApplication(sys.argv)
+    #MainWindow = QtWidgets.QMainWindow()
+    #ui = Ui_MainWindow()
+    #ui.setupUi(MainWindow)
+    #MainWindow.show()
+    #sys.exit(app.exec_())
 
