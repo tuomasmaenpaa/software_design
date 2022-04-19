@@ -1,0 +1,71 @@
+{
+    "V\u00e4rri\u00f6": {
+        "id": "1",
+        "variables": {
+            
+            "NO\u2093": "VAR_META.NOX_4",
+            "SO\u2082": "VAR_META.SO2_4",
+            "CO\u2082": "VAR_META.CO206"
+        }
+    },
+    "Hyyti\u00e4l\u00e4": {
+        "id": "2",
+        "variables": {
+  
+            "CO\u2082 concentration 4.2 m": "HYY_META.CO242",
+            "NO\u2093 concentration 4.2 m": "HYY_META.NOx42",
+            "SO\u2082 concentration 4.2 m": "HYY_META.SO242"
+            
+        }
+    },
+    "Kumpula": {
+        "id": "3",
+        "variables": {
+            "NO\u2093 concentration": "KUM_META.NO_x",
+            "SO\u2082 concentration": "KUM_META.SO_2",
+            "CO\u2082 concentration": "KUM_EDDY.av_c_ep"       
+        }
+    },
+    "Erottaja": {
+        "id": "5",
+        "variables": {
+            "CO\u2082 concentration": "ERO_EDDY.av_c_op"
+        }
+    },
+    "Torni": {
+        "id": "6",
+        "variables": {
+            "CO\u2082 concentration": "TOR_EDDY.av_c"
+        }
+    },
+    "Siikaneva 1": {
+        "id": "7",
+        "variables": {
+            "CO\u2082 concentration": "SII1_EDDY.av_c"
+        }
+    },
+    "Siikaneva 2": {
+        "id": "8",
+        "variables": {
+            "CO\u2082 concentration": "SII2_EDDY.av_c"
+        }
+    },
+    "Kuivaj\u00e4rvi": {
+        "id": "9",
+        "variables": {
+            "CO\u2082 concentration": "KVJ_EDDY.av_c_LI72"
+        }
+    },
+    "Viikki": {
+        "id": "12",
+        "variables": {
+            "CO\u2082 concentration": "VII_EDDY.av_c"
+        }
+    },
+    "Haltiala": {
+        "id": "13",
+        "variables": {
+            "CO\u2082 concentration": "HAL_EDDY.av_c"
+        }
+    }
+}
