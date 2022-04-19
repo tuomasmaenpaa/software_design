@@ -21,7 +21,9 @@ path = Path(__file__).parent / 'opt' / 'menu.json'
 menu = open(path)
 menu = json.load(menu)
 
-print(menu.keys())
+#print(menu.keys())
+gasList = list(menu['Värriö']['variables'].keys())
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -45,10 +47,10 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         #self.comboBox = QtWidgets.QComboBox(self.frame)
-        self.comboBox = CheckableComboBox(self.frame)
-        self.comboBox.setGeometry(QtCore.QRect(20, 20, 104, 26))
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItems(menu.keys())
+        self.comboBoxStation = CheckableComboBox(self.frame)
+        self.comboBoxStation.setGeometry(QtCore.QRect(20, 20, 104, 26))
+        self.comboBoxStation.setObjectName("comboBoxStation")
+        self.comboBoxStation.addItems(menu.keys())
 
         self.stationLabel1 = QtWidgets.QLabel('Station', self.tab)
         self.stationLabel1.setObjectName("gasLabel1")
@@ -59,10 +61,11 @@ class Ui_MainWindow(object):
         self.gasLabel1.setGeometry(QtCore.QRect(130, 65, 171, 51))
         self.gasLabel1.setAlignment(QtCore.Qt.AlignCenter)
 
-        self.comboBox_2 = CheckableComboBox(self.frame)
-        self.comboBox_2.setGeometry(QtCore.QRect(140, 20, 104, 26))
-        self.comboBox_2.setObjectName("comboBox_2")
-        self.comboBox_2.addItem("")
+        self.comboBoxGas = CheckableComboBox(self.frame)
+        self.comboBoxGas.setGeometry(QtCore.QRect(140, 20, 104, 26))
+        self.comboBoxGas.setObjectName("comboBoxGas")
+        self.comboBoxGas.addItems(gasList)
+
         self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.frame)
         self.dateTimeEdit.setGeometry(QtCore.QRect(260, 20, 110, 24))
         self.dateTimeEdit.setObjectName("dateTimeEdit")
@@ -204,17 +207,14 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "View Real Time Data"))
-        self.comboBox.setItemText(0, _translate("MainWindow", "Station"))
-        self.comboBox_2.setItemText(0, _translate("MainWindow", "Gas"))
+
         self.pushButton.setText(_translate("MainWindow", "Plot"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Real-Time"))
         self.label_2.setText(_translate("MainWindow", "View Historical Data"))
-        self.comboBox_3.setItemText(0, _translate("MainWindow", "Station"))
-        self.comboBox_4.setItemText(0, _translate("MainWindow", "Gas"))
+
         self.pushButton_2.setText(_translate("MainWindow", "Plot"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Historical"))
-        self.comboBox_5.setItemText(0, _translate("MainWindow", "Station"))
-        self.comboBox_6.setItemText(0, _translate("MainWindow", "Gas"))
+
         self.pushButton_3.setText(_translate("MainWindow", "Plot"))
         self.label_3.setText(_translate("MainWindow", "Compare Historical and Real-Time Data"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Compare"))
