@@ -8,6 +8,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPalette, QFontMetrics, QStandardItem
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as Canvas
 import matplotlib
@@ -54,11 +56,22 @@ class Ui_MainWindow(object):
         self.comboBox_2.setObjectName("comboBox_2")
         self.comboBox_2.addItem("")
         self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.frame)
-        self.dateTimeEdit.setGeometry(QtCore.QRect(300, 20, 110, 24))
+        self.dateTimeEdit.setGeometry(QtCore.QRect(260, 20, 110, 24))
         self.dateTimeEdit.setObjectName("dateTimeEdit")
+
+        aggregations = ["None", "Minimum", "Maximum", "Average"]
+        self.aggregationCheckBox = QtWidgets.QComboBox(self.frame)
+        self.aggregationCheckBox.setGeometry(QtCore.QRect(490, 20, 104, 26))
+        self.aggregationCheckBox.addItems(aggregations)
+
+        botLimit = QDateTime(2013, 1, 1, 00, 00)
+        topLimit = QDateTime.currentDateTime()
+
+        self.dateTimeEdit.setDateTimeRange(botLimit, topLimit)
         self.dateTimeEdit1_2 = QtWidgets.QDateTimeEdit(self.frame)
-        self.dateTimeEdit1_2.setGeometry(QtCore.QRect(440, 20, 110, 24))
+        self.dateTimeEdit1_2.setGeometry(QtCore.QRect(380, 20, 110, 24))
         self.dateTimeEdit1_2.setObjectName("dateTimeEdit1_2")
+        self.dateTimeEdit1_2.setDateTimeRange(botLimit, topLimit)
         self.pushButton = QtWidgets.QPushButton(self.frame)
         self.pushButton.setGeometry(QtCore.QRect(590, 10, 113, 32))
         self.pushButton.setObjectName("pushButton")
@@ -94,8 +107,13 @@ class Ui_MainWindow(object):
         self.comboBox_4.setGeometry(QtCore.QRect(140, 20, 104, 26))
         self.comboBox_4.setObjectName("comboBox_4")
         self.comboBox_4.addItem("")
+
+        botLimit2 = QDateTime(1975, 1, 1, 00, 00)
+        topLimit2 = QDateTime(2017, 1, 1, 00, 00)
+
         self.dateTimeEdit_2 = QtWidgets.QDateTimeEdit(self.frame_2)
         self.dateTimeEdit_2.setDisplayFormat("yyyy")
+        self.dateTimeEdit_2.setDateTimeRange(botLimit2, topLimit2)
         self.dateTimeEdit_2.setGeometry(QtCore.QRect(300, 20, 110, 24))
         self.dateTimeEdit_2.setObjectName("dateTimeEdit_2")
         self.pushButton_2 = QtWidgets.QPushButton(self.frame_2)
@@ -105,6 +123,7 @@ class Ui_MainWindow(object):
         self.dateTimeEdit_3.setDisplayFormat("yyyy")
         self.dateTimeEdit_3.setGeometry(QtCore.QRect(430, 20, 110, 24))
         self.dateTimeEdit_3.setObjectName("dateTimeEdit_3")
+        self.dateTimeEdit_3.setDateTimeRange(botLimit2, topLimit2)
         self.graphWidget_2 = MplWidget(self.tab_2)
         self.graphWidget_2.setGeometry(QtCore.QRect(30, 160, 721, 341))
         self.graphWidget_2.setObjectName("graphWidget_2")
