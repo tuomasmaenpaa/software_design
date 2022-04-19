@@ -14,6 +14,14 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as Canvas
 import matplotlib
 #from mplwidget import MplWidget
+from pathlib import Path
+import json
+
+path = Path(__file__).parent / 'opt' / 'menu.json'
+menu = open(path)
+menu = json.load(menu)
+
+print(menu.keys())
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -40,7 +48,7 @@ class Ui_MainWindow(object):
         self.comboBox = CheckableComboBox(self.frame)
         self.comboBox.setGeometry(QtCore.QRect(20, 20, 104, 26))
         self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
+        self.comboBox.addItems(menu.keys())
 
         self.stationLabel1 = QtWidgets.QLabel('Station', self.tab)
         self.stationLabel1.setObjectName("gasLabel1")
@@ -166,9 +174,15 @@ class Ui_MainWindow(object):
         self.label_3.setGeometry(QtCore.QRect(260, 10, 251, 51))
         self.label_3.setObjectName("label_3")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.graphWidget_3 = MplWidget(self.tab_3)
-        self.graphWidget_3.setGeometry(QtCore.QRect(30, 160, 721, 341))
-        self.graphWidget_3.setObjectName("graphWidget_3")
+
+        self.graphHist = MplWidget(self.tab_3)
+        self.graphHist.setGeometry(QtCore.QRect(30, 160, 360, 341))
+        self.graphHist.setObjectName("graphHist")
+
+        self.graphReal = MplWidget(self.tab_3)
+        self.graphReal.setGeometry(QtCore.QRect(400, 160, 360, 341))
+        self.graphReal.setObjectName("graphReal")
+
         self.tabWidget.addTab(self.tab_3, "")
         self.tab_4 = QtWidgets.QWidget()
         self.tab_4.setObjectName("tab_4")
@@ -256,6 +270,10 @@ class CheckableComboBox(QtWidgets.QComboBox):
 
         # Prevent popup from closing when clicking on an item
         self.view().viewport().installEventFilter(self)
+
+    def loadGases(self, event):
+        # TODO GASES TO COMBOBOX
+        return
 
     def resizeEvent(self, event):
         # Recompute text to elide as needed
