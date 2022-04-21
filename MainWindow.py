@@ -17,13 +17,13 @@ import matplotlib
 from pathlib import Path
 import json
 
-path = Path(__file__).parent / 'opt' / 'menu.json'
+path = Path(__file__).parent / 'opt' / 'simple_menu.json'
 menu = open(path)
 menu = json.load(menu)
 
 #print(menu.keys())
-gasList = list(menu['Värriö']['variables'].keys())
-
+#gasList = list(menu['Värriö']['variables'].keys())
+gasList = ['CO\u2082', 'NO\u2093', 'SO\u2082']
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
