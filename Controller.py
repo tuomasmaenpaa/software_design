@@ -67,4 +67,9 @@ class Controller:
         hour, minute, second, millisecond = 12, 0, 0, 0
         iso_date = datetime(year, month, day, hour, minute, second, millisecond)
         return iso_date.isoformat(timespec='milliseconds')
-        
+    
+    def datetime_to_ISO_string(date: QtCore.QDateTime):
+        """
+        Takes a QDateTime object and returns an ISO formatted timestamp for API calls
+        """
+        return date.toPyDateTime().isoformat(timespec='milliseconds')
