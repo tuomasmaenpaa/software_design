@@ -3,25 +3,25 @@
         "id": "1",
         "variables": {
             
-            "NO\u2093": "VAR_META.NOX_4",
-            "SO\u2082": "VAR_META.SO2_4",
-            "CO\u2082": "VAR_META.CO206"
+            "NO\u2093": "VAR_META.NOX_0",
+            "SO\u2082": "VAR_META.SO2_1",
+            "CO\u2082": "VAR_EDDY.av_c"
         }
     },
     "Hyyti\u00e4l\u00e4": {
         "id": "2",
         "variables": {
   
-            "CO\u2082": "HYY_META.CO242",
-            "NO\u2093": "HYY_META.NOx42",
-            "SO\u2082": "HYY_META.SO242"
+            "CO\u2082": "HYY_META.CO2icos168",
+            "NO\u2093": "HYY_META.NO168",
+            "SO\u2082": "HYY_META.SO2168"
             
         }
     },
     "Kumpula": {
         "id": "3",
         "variables": {
-            "NO\u2093": "KUM_META.NO_x",
+            "NO\u2093": "KUM_META.NO",
             "SO\u2082": "KUM_META.SO_2",
             "CO\u2082": "KUM_EDDY.av_c_ep"       
         }

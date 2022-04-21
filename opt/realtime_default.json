@@ -1,1 +1,25 @@
-{"start_date": "2022-03-12T01:00:00.000", "end_date": "2022-03-12T02:00:00.000", "table_variables": ["VAR_META.SO2_1", "HYY_META.SO2168", "KUM_META.SO_2"], "interval": 30, "aggregation": "NONE"}
+{
+    "start_date": "2022-03-01T01:00:00.000",
+    "end_date": "2022-03-21T02:00:00.000",
+    "table_variables": [
+        "VAR_META.NOX_0",
+        "VAR_META.SO2_1",
+        "VAR_EDDY.av_c",
+        "HYY_META.CO2icos168",
+        "HYY_META.NO168",
+        "HYY_META.SO2168",
+        "KUM_META.NO",
+        "KUM_META.SO_2",
+        "KUM_EDDY.av_c_ep",
+        "ERO_EDDY.av_c_op",
+        "TOR_EDDY.av_c",
+        "SII1_EDDY.av_c",
+        "SII2_EDDY.av_c",
+        "KVJ_EDDY.av_c_LI72",
+        "VII_EDDY.av_c",
+        "HAL_EDDY.av_c"
+
+    ],
+    "interval": 30,
+    "aggregation": "NONE"
+}
