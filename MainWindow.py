@@ -16,6 +16,7 @@ import matplotlib
 #from mplwidget import MplWidget
 from pathlib import Path
 import json
+from Controller import Controller
 
 path = Path(__file__).parent / 'opt' / 'simple_menu.json'
 menu = open(path)
@@ -203,6 +204,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.controller = ''
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -219,6 +222,32 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Compare Historical and Real-Time Data"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Compare"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Averages"))
+    
+    def setup_controller(self, controller: Controller):
+        self.controller = controller
+
+    def plot_realtime(self):
+        data = self.controller.handle_realtime(use_defaults=True)
+        data.plot(ax=self.graphWidget.canvas.ax)
+
+    def plot_historical(self):
+        data = self.controller.handle_historical(use_defaults=True)
+        data.plot(ax=self.graphWidget_2.canvas.ax)
+    
+    def plot_comparison(self):
+        realtime_data = self.controller.handle_realtime(use_defaults=True)
+        historical_data = self.controller.handle_historical(use_defaults=True)
+
+        realtime_data.plot(ax=self.graphReal.canvas.ax)
+        historical_data.plot(ax=self.graphHist.canvas.ax)
+
+    def plot_comparison(self):
+        realtime_data = self.controller.handle_realtime(use_defaults=True)
+        historical_data = self.controller.handle_historical(use_defaults=True)
+
+        realtime_data.plot(ax=self.graphReal.canvas.ax)
+        historical_data.plot(ax=self.graphHist.canvas.ax)
+    
 
 # Ensure using PyQt5 backend
 matplotlib.use('QT5Agg')

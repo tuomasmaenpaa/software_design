@@ -22,11 +22,13 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
 
     dataf = DataFetcher()
-    model = Model(dataf, ui)
+    model = Model(dataf)
     controller = Controller(model)
-
-
-    controller.handle_historical(True, False)
-    controller.handle_realtime(True, False)
+    ui.setup_controller(controller)
+    ui.plot_realtime()
+    ui.plot_historical()
+    ui.plot_comparison()
+    #controller.handle_historical(True, False)
+    #controller.handle_realtime(True, False)
     MainWindow.show()
     sys.exit(app.exec_())
