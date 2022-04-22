@@ -22,6 +22,7 @@ class Controller:
             path = Path(__file__).parent / 'opt' / 'realtime_default.json'
             with open(path, 'r') as infile:
                 defaults = json.load(infile)
+                infile.close()
                 return self.model.fetch_realtime(defaults['start_date'], 
                         defaults['end_date'], defaults['table_variables'],
                         defaults['interval'], defaults['aggregation'])
@@ -39,6 +40,7 @@ class Controller:
             path = Path(__file__).parent / 'opt' / 'hist_default.json'
             with open(path, 'r') as infile:
                 defaults = json.load(infile)
+                infile.close()
                 return self.model.fetch_historical(defaults['years'], defaults['categories'])
         else:
             return self.model.fetch_historical(years, categories)    

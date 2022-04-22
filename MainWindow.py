@@ -145,7 +145,7 @@ class Ui_MainWindow(object):
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
 
         self.frame_2 = QtWidgets.QFrame(self.tab_2)
-        self.frame_2.setGeometry(QtCore.QRect(30, 80, 721, 61))
+        self.frame_2.setGeometry(QtCore.QRect(30, 80, 1021, 61))
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
@@ -170,7 +170,7 @@ class Ui_MainWindow(object):
         self.dateTimeEdit_2.setObjectName("dateTimeEdit_2")
         
         self.pushButton_2 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_2.setGeometry(QtCore.QRect(590, 10, 113, 32))
+        self.pushButton_2.setGeometry(QtCore.QRect(890, 10, 113, 32))
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_2.clicked.connect(self.plot_historical)
 
@@ -179,6 +179,12 @@ class Ui_MainWindow(object):
         self.dateTimeEdit_3.setGeometry(QtCore.QRect(430, 20, 110, 24))
         self.dateTimeEdit_3.setObjectName("dateTimeEdit_3")
         self.dateTimeEdit_3.setDateTimeRange(botLimit2, topLimit2)
+
+        self.defaultCheck2 = QtWidgets.QCheckBox('Use defaults', self.frame_2)
+        self.defaultCheck2.setGeometry(QtCore.QRect(650,20,120,24))
+
+        self.defaultSaveCheck2 = QtWidgets.QCheckBox('Save as defaults', self.frame_2)
+        self.defaultSaveCheck2.setGeometry(QtCore.QRect(750,20,120,24))
         
         self.graphWidget_2 = MplWidget(self.tab_2)
         self.graphWidget_2.setGeometry(QtCore.QRect(30, 160, 1021, 441))
@@ -262,7 +268,7 @@ class Ui_MainWindow(object):
                 end_date = start_date
                 start_date = temp
             elif end_date == start_date:
-                end_date.addDays(1)
+                end_date = end_date.addDays(1)
 
 
             start_date = self.controller.datetime_to_ISO_string(start_date)
@@ -286,17 +292,22 @@ class Ui_MainWindow(object):
         self.graphComparison.canvas.draw()
 
     def plot_historical(self):
-
-        start_year = self.controller.get_year(self.dateTimeEdit_2.date())
-        end_year = self.controller.get_year(self.dateTimeEdit_3.date())
-        years = list(range(start_year, end_year))
-
-        measurements = self.comboBox_4.currentData()
-        categories = [hist[m] for m in measurements]
-
         
+        use_defaults = self.defaultCheck2.isChecked()
+        save_defaults = self.defaultSaveCheck2.isChecked()
 
-        data = self.controller.handle_historical(years=years, categories=categories, use_defaults=False, save_defaults=False)
+        if use_defaults:
+            data = self.controller.handle_historical(use_defaults=use_defaults, save_defaults=save_defaults)
+        else:
+            start_year = self.controller.get_year(self.dateTimeEdit_2.date())
+            end_year = self.controller.get_year(self.dateTimeEdit_3.date())
+            years = list(range(start_year, end_year))
+
+            measurements = self.comboBox_4.currentData()
+            categories = [hist[m] for m in measurements]
+            data = self.controller.handle_historical(years=years, categories=categories, use_defaults=use_defaults,
+                    save_defaults=save_defaults)
+        
         self.graphWidget_2.canvas.ax.cla()
         data.plot(ax=self.graphWidget_2.canvas.ax)
         self.graphWidget_2.canvas.draw()
