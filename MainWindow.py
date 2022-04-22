@@ -152,7 +152,7 @@ class Ui_MainWindow(object):
 
         self.gasLabel2 = QtWidgets.QLabel('Measurement', self.tab_2)
         self.gasLabel2.setObjectName("gasLabel2")
-        self.gasLabel2.setGeometry(QtCore.QRect(130, 65, 171, 51))
+        self.gasLabel2.setGeometry(QtCore.QRect(10, 75, 171, 30))
         self.gasLabel2.setAlignment(QtCore.Qt.AlignCenter)
 
         self.comboBox_4 = CheckableComboBox(self.frame_2)
@@ -168,6 +168,11 @@ class Ui_MainWindow(object):
         self.dateTimeEdit_2.setDateTimeRange(botLimit2, topLimit2)
         self.dateTimeEdit_2.setGeometry(QtCore.QRect(300, 20, 110, 24))
         self.dateTimeEdit_2.setObjectName("dateTimeEdit_2")
+
+        self.histDateLabel1 = QtWidgets.QLabel('From', self.tab_2)
+        self.histDateLabel1.setObjectName("gasLabel2")
+        self.histDateLabel1.setGeometry(QtCore.QRect(290, 75, 171, 30))
+        self.histDateLabel1.setAlignment(QtCore.Qt.AlignCenter)
         
         self.pushButton_2 = QtWidgets.QPushButton(self.frame_2)
         self.pushButton_2.setGeometry(QtCore.QRect(890, 10, 113, 32))
@@ -179,6 +184,11 @@ class Ui_MainWindow(object):
         self.dateTimeEdit_3.setGeometry(QtCore.QRect(430, 20, 110, 24))
         self.dateTimeEdit_3.setObjectName("dateTimeEdit_3")
         self.dateTimeEdit_3.setDateTimeRange(botLimit2, topLimit2)
+
+        self.histDateLabel2 = QtWidgets.QLabel('To', self.tab_2)
+        self.histDateLabel2.setObjectName("gasLabel2")
+        self.histDateLabel2.setGeometry(QtCore.QRect(420, 75, 171, 30))
+        self.histDateLabel2.setAlignment(QtCore.Qt.AlignCenter)
 
         self.defaultCheck2 = QtWidgets.QCheckBox('Use defaults', self.frame_2)
         self.defaultCheck2.setGeometry(QtCore.QRect(650,20,120,24))
