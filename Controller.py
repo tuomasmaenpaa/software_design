@@ -107,3 +107,12 @@ class Controller:
                 except KeyError:
                     pass
         return tv
+
+    def generate_filepath(self, source):
+        """
+        Generate filepath for figure, source is realtime, historical or compare
+        """
+        now = datetime.now().isoformat()
+        name = source + '_' + now + '.png'
+        path = Path(__file__).parent / 'figures' / name
+        return path

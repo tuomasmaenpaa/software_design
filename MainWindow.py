@@ -135,6 +135,12 @@ class Ui_MainWindow(object):
         self.graphWidget.setGeometry(QtCore.QRect(30, 160, 1021, 441))
         self.graphWidget.setObjectName("graphWidget")
 
+        self.saveRealTimeFigPushButton = QtWidgets.QPushButton(self.tab)
+        
+        self.saveRealTimeFigPushButton.setGeometry(QtCore.QRect(0,0, 113, 32))
+        self.saveRealTimeFigPushButton.setObjectName("saveRealTimeFigPushButton")
+        self.saveRealTimeFigPushButton.clicked.connect(self.save_realtime_plot)
+
 
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
@@ -239,6 +245,8 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "View Real Time Data"))
 
         self.pushButton.setText(_translate("MainWindow", "Plot"))
+        self.saveRealTimeFigPushButton.setText(_translate("Mainwindow,", "Save figure"))
+
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Real-Time"))
         self.label_2.setText(_translate("MainWindow", "View Historical Data"))
 
@@ -326,7 +334,11 @@ class Ui_MainWindow(object):
         self.graphComparison.canvas.ax2.cla()
         data.plot(ax=self.graphComparison.canvas.ax2)
         self.graphComparison.canvas.draw()
-
+    
+    def save_realtime_plot(self):
+        
+        path = self.controller.generate_filepath('SMEAR')
+        self.graphWidget.canvas.fig.savefig(path)
 
     
 
