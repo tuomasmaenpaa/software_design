@@ -136,7 +136,6 @@ class Ui_MainWindow(object):
         self.graphWidget.setObjectName("graphWidget")
 
         self.saveRealTimeFigPushButton = QtWidgets.QPushButton(self.tab)
-        
         self.saveRealTimeFigPushButton.setGeometry(QtCore.QRect(0,0, 113, 32))
         self.saveRealTimeFigPushButton.setObjectName("saveRealTimeFigPushButton")
         self.saveRealTimeFigPushButton.clicked.connect(self.save_realtime_plot)
@@ -149,6 +148,12 @@ class Ui_MainWindow(object):
         self.label_2.setGeometry(QtCore.QRect(300, 10, 171, 51))
         self.label_2.setObjectName("label_2")
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.saveHistoricalFigPushButton = QtWidgets.QPushButton(self.tab_2)
+        self.saveHistoricalFigPushButton.setGeometry(QtCore.QRect(0,0, 113, 32))
+        self.saveHistoricalFigPushButton.setObjectName("saveRealTimeFigPushButton")
+        self.saveHistoricalFigPushButton.clicked.connect(self.save_historical_plot)
+
 
         self.frame_2 = QtWidgets.QFrame(self.tab_2)
         self.frame_2.setGeometry(QtCore.QRect(30, 80, 1021, 61))
@@ -216,6 +221,12 @@ class Ui_MainWindow(object):
         self.label_3.setObjectName("label_3")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
 
+        self.saveCompareFigPushButton = QtWidgets.QPushButton(self.tab_3)
+        self.saveCompareFigPushButton.setGeometry(QtCore.QRect(0,0, 113, 32))
+        self.saveCompareFigPushButton.setObjectName("saveRealTimeFigPushButton")
+        self.saveCompareFigPushButton.clicked.connect(self.save_compare_plot)
+
+
         self.graphComparison = MplWidgetDouble(self.tab_3)
         self.graphComparison.setGeometry(QtCore.QRect(30, 30, 1021, 621))
         self.graphComparison.setObjectName("graphComparison")
@@ -246,6 +257,8 @@ class Ui_MainWindow(object):
 
         self.pushButton.setText(_translate("MainWindow", "Plot"))
         self.saveRealTimeFigPushButton.setText(_translate("Mainwindow,", "Save figure"))
+        self.saveHistoricalFigPushButton.setText(_translate("MainWindow", "Save figure"))
+        self.saveCompareFigPushButton.setText(_translate("MainWindow", "Save figure"))
 
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Real-Time"))
         self.label_2.setText(_translate("MainWindow", "View Historical Data"))
@@ -340,7 +353,15 @@ class Ui_MainWindow(object):
         path = self.controller.generate_filepath('SMEAR')
         self.graphWidget.canvas.fig.savefig(path)
 
+    def save_historical_plot(self):
     
+        path = self.controller.generate_filepath('STATFI')
+        self.graphWidget_2.canvas.fig.savefig(path)
+
+    def save_compare_plot(self):
+    
+        path = self.controller.generate_filepath('COMPARE')
+        self.graphComparison.canvas.fig.savefig(path)
 
 # Ensure using PyQt5 backend
 matplotlib.use('QT5Agg')
