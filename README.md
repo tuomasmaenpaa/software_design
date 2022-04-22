@@ -8,7 +8,7 @@ Requirements:
         pyqt5
         pandas
 
-=========================================================================================================================================
+===============================================================================
 
 Instructions
 
@@ -46,7 +46,7 @@ case 3 except be sure to selet "ARITHMETIC" aggregation for real time data. To s
 view, select the first and the last day of that year on the date selections on real time data. Saving the figure is again
 done excactly as before.
 
-=========================================================================================================================================
+===============================================================================
 
 UI-Prototype
 
