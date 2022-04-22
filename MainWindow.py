@@ -14,7 +14,7 @@ from PyQt5.QtCore import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as Canvas
 import matplotlib
-#from mplwidget import MplWidget
+
 from pathlib import Path
 import json
 from Controller import Controller
@@ -24,8 +24,6 @@ menu_f = open(path)
 menu = json.load(menu_f)
 menu_f.close()
 
-#print(menu.keys())
-#gasList = list(menu['Värriö']['variables'].keys())
 gasList = ['CO\u2082', 'NO\u2093', 'SO\u2082']
 path = Path(__file__).parent / 'opt' / 'hist.json'
 hist_f = open(path, 'r')
@@ -52,7 +50,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
 
         self.frame = QtWidgets.QFrame(self.tab)
-        self.frame.setGeometry(QtCore.QRect(30, 80, 721, 61))
+        self.frame.setGeometry(QtCore.QRect(30, 80, 1021, 61))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -63,12 +61,12 @@ class Ui_MainWindow(object):
         self.comboBoxStation.addItems(menu.keys())
 
         self.stationLabel1 = QtWidgets.QLabel('Station', self.tab)
-        self.stationLabel1.setObjectName("gasLabel1")
-        self.stationLabel1.setGeometry(QtCore.QRect(10, 65, 171, 51))
+        self.stationLabel1.setObjectName("stationLabel1")
+        self.stationLabel1.setGeometry(QtCore.QRect(10, 75, 171, 30))
         self.stationLabel1.setAlignment(QtCore.Qt.AlignCenter)
         self.gasLabel1 = QtWidgets.QLabel('Gas', self.tab)
         self.gasLabel1.setObjectName("gasLabel1")
-        self.gasLabel1.setGeometry(QtCore.QRect(130, 65, 171, 51))
+        self.gasLabel1.setGeometry(QtCore.QRect(130, 80, 171, 20))
         self.gasLabel1.setAlignment(QtCore.Qt.AlignCenter)
 
         self.comboBoxGas = CheckableComboBox(self.frame)
@@ -80,10 +78,27 @@ class Ui_MainWindow(object):
         self.dateTimeEdit.setGeometry(QtCore.QRect(260, 20, 110, 24))
         self.dateTimeEdit.setObjectName("dateTimeEdit")
 
+        self.dateLabel1 = QtWidgets.QLabel('From', self.tab)
+        self.dateLabel1.setObjectName('dateLabel1')
+        self.dateLabel1.setGeometry(QtCore.QRect(250,80,171,20))
+        self.dateLabel1.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.dateLabel2 = QtWidgets.QLabel('To', self.tab)
+        self.dateLabel2.setObjectName('dateLabel2')
+        self.dateLabel2.setGeometry(QtCore.QRect(370,80,171,20))
+        self.dateLabel2.setAlignment(QtCore.Qt.AlignCenter)
+
+
         aggregations = ["NONE", "MIN", "MAX", "ARITHMETIC"]
         self.aggregationCheckBox = QtWidgets.QComboBox(self.frame)
         self.aggregationCheckBox.setGeometry(QtCore.QRect(490, 20, 104, 26))
         self.aggregationCheckBox.addItems(aggregations)
+
+
+        self.aggLabel = QtWidgets.QLabel('Aggregation', self.tab)
+        self.aggLabel.setObjectName('aggLabel')
+        self.aggLabel.setGeometry(QtCore.QRect(480,80,171,20))
+        self.aggLabel.setAlignment(QtCore.Qt.AlignCenter)
 
         botLimit = QDateTime(2013, 1, 1, 00, 00)
         topLimit = QDateTime.currentDateTime()
@@ -94,14 +109,33 @@ class Ui_MainWindow(object):
         self.dateTimeEdit1_2.setObjectName("dateTimeEdit1_2")
         self.dateTimeEdit1_2.setDateTimeRange(botLimit, topLimit)
         
+        self.intervalSpinBox = QtWidgets.QSpinBox(self.frame)
+        self.intervalSpinBox.setMinimum(1)
+        self.intervalSpinBox.setMaximum(60)
+        self.intervalSpinBox.setGeometry(QtCore.QRect(600,20,50,24))
+
+        self.spinLabel = QtWidgets.QLabel('Interval', self.tab)
+        self.spinLabel.setObjectName('aggLabel')
+        self.spinLabel.setGeometry(QtCore.QRect(590,73,171,30))
+        self.spinLabel.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.defaultCheck = QtWidgets.QCheckBox('Use defaults', self.frame)
+        self.defaultCheck.setGeometry(QtCore.QRect(650,20,120,24))
+
+        self.defaultSaveCheck = QtWidgets.QCheckBox('Save as defaults', self.frame)
+        self.defaultSaveCheck.setGeometry(QtCore.QRect(750,20,120,24))
+
+
         self.pushButton = QtWidgets.QPushButton(self.frame)
-        self.pushButton.setGeometry(QtCore.QRect(590, 10, 113, 32))
+        self.pushButton.setGeometry(QtCore.QRect(890, 10, 113, 32))
         self.pushButton.setObjectName("pushButton")
         self.pushButton.clicked.connect(self.plot_realtime)
 
         self.graphWidget = MplWidget(self.tab)
         self.graphWidget.setGeometry(QtCore.QRect(30, 160, 1021, 441))
         self.graphWidget.setObjectName("graphWidget")
+
+
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -115,18 +149,12 @@ class Ui_MainWindow(object):
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-#        self.stationLabel2 = QtWidgets.QLabel('Station', self.tab_2)
-#        self.stationLabel2.setObjectName("gasLabel2")
-#        self.stationLabel2.setGeometry(QtCore.QRect(10, 65, 171, 51))
-#        self.stationLabel2.setAlignment(QtCore.Qt.AlignCenter)
+
         self.gasLabel2 = QtWidgets.QLabel('Measurement', self.tab_2)
         self.gasLabel2.setObjectName("gasLabel2")
         self.gasLabel2.setGeometry(QtCore.QRect(130, 65, 171, 51))
         self.gasLabel2.setAlignment(QtCore.Qt.AlignCenter)
-#        self.comboBox_3 = CheckableComboBox(self.frame_2)
-#        self.comboBox_3.setGeometry(QtCore.QRect(20, 20, 104, 26))
-#        self.comboBox_3.setObjectName("comboBox_3")
-#        self.comboBox_3.addItem("")
+
         self.comboBox_4 = CheckableComboBox(self.frame_2)
         self.comboBox_4.setGeometry(QtCore.QRect(20, 20, 200, 26))
         self.comboBox_4.setObjectName("comboBox_4")
@@ -170,15 +198,10 @@ class Ui_MainWindow(object):
         self.graphComparison.setGeometry(QtCore.QRect(30, 30, 1021, 621))
         self.graphComparison.setObjectName("graphComparison")
 
-
-#        self.graphReal = MplWidget(self.tab_3)
-#        self.graphReal.setGeometry(QtCore.QRect(400, 160, 360, 341))
-#        self.graphReal.setObjectName("graphReal")
-
         self.tabWidget.addTab(self.tab_3, "")
-        self.tab_4 = QtWidgets.QWidget()
-        self.tab_4.setObjectName("tab_4")
-        self.tabWidget.addTab(self.tab_4, "")
+    #    self.tab_4 = QtWidgets.QWidget()
+    #    self.tab_4.setObjectName("tab_4")
+    #    self.tabWidget.addTab(self.tab_4, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -208,32 +231,51 @@ class Ui_MainWindow(object):
 
         self.label_3.setText(_translate("MainWindow", "Compare Historical and Real-Time Data"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Compare"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Averages"))
+       # self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Averages"))
     
     def setup_controller(self, controller: Controller):
         self.controller = controller
 
     def plot_realtime(self):
 
-        stations = self.comboBoxStation.currentData()
-        gases = self.comboBoxGas.currentData()
+        use_defaults = self.defaultCheck.isChecked()
+        save_defaults = self.defaultSaveCheck.isChecked()
 
-        table_variables = self.controller.get_tablevariables(stations, gases)
+        if use_defaults:
+            data = self.controller.handle_realtime(use_defaults=use_defaults, save_defaults=save_defaults)
+        else:
+            stations = self.comboBoxStation.currentData()
+            gases = self.comboBoxGas.currentData()
 
-        start_date = self.dateTimeEdit.dateTime()
-        end_date = self.dateTimeEdit1_2.dateTime()
+            table_variables = self.controller.get_tablevariables(stations, gases)
 
-        start_date = self.controller.datetime_to_ISO_string(start_date)
-        end_date = self.controller.datetime_to_ISO_string(end_date)
-        try:
-            aggregation = str(self.aggregationCheckBox.currentText())
-        except:
-            aggregation = 'NONE'
-        interval = '30'
+            if len(table_variables) == 0:
+                return
 
-        data = self.controller.handle_realtime(start_date=start_date, end_date=end_date, table_variables=table_variables,
-                interval=interval, aggregation=aggregation, use_defaults=False, save_defaults=False)
-       
+            start_date = self.dateTimeEdit.dateTime()
+            end_date = self.dateTimeEdit1_2.dateTime()
+
+            # If the user selects the end date to be before start date, flip them around.
+            # If the datetimes are the same, add a day to end date.
+            if end_date < start_date:
+                temp = end_date
+                end_date = start_date
+                start_date = temp
+            elif end_date == start_date:
+                end_date.addDays(1)
+
+
+            start_date = self.controller.datetime_to_ISO_string(start_date)
+            end_date = self.controller.datetime_to_ISO_string(end_date)
+            try:
+                aggregation = str(self.aggregationCheckBox.currentText())
+            except:
+                aggregation = 'NONE'
+            interval = '30'
+
+            data = self.controller.handle_realtime(start_date=start_date, end_date=end_date, table_variables=table_variables,
+                    interval=interval, aggregation=aggregation, use_defaults=use_defaults, save_defaults=save_defaults)
+        
         # Clear previous plots
         self.graphWidget.canvas.ax.cla()
         data.plot(ax=self.graphWidget.canvas.ax)
@@ -258,6 +300,7 @@ class Ui_MainWindow(object):
         self.graphWidget_2.canvas.ax.cla()
         data.plot(ax=self.graphWidget_2.canvas.ax)
         self.graphWidget_2.canvas.draw()
+
         # We plot the same plot for the comparison tab
         self.graphComparison.canvas.ax2.cla()
         data.plot(ax=self.graphComparison.canvas.ax2)
@@ -424,13 +467,4 @@ class CheckableComboBox(QtWidgets.QComboBox):
             if self.model().item(i).checkState() == QtCore.Qt.Checked:
                 res.append(self.model().item(i).data())
         return res
-
-#if __name__ == "__main__":
-    import sys
-    #app = QtWidgets.QApplication(sys.argv)
-    #MainWindow = QtWidgets.QMainWindow()
-    #ui = Ui_MainWindow()
-    #ui.setupUi(MainWindow)
-    #MainWindow.show()
-    #sys.exit(app.exec_())
 

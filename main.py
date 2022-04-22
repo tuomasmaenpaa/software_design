@@ -25,5 +25,6 @@ if __name__ == "__main__":
     model = Model(dataf)
     controller = Controller(model)
     ui.setup_controller(controller)
+
     MainWindow.show()
     sys.exit(app.exec_())
