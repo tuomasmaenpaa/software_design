@@ -20,12 +20,20 @@ import json
 from Controller import Controller
 
 path = Path(__file__).parent / 'opt' / 'simple_menu.json'
-menu = open(path)
-menu = json.load(menu)
+menu_f = open(path)
+menu = json.load(menu_f)
+menu_f.close()
 
 #print(menu.keys())
 #gasList = list(menu['Värriö']['variables'].keys())
 gasList = ['CO\u2082', 'NO\u2093', 'SO\u2082']
+path = Path(__file__).parent / 'opt' / 'hist.json'
+hist_f = open(path, 'r')
+hist = json.load(hist_f)
+hist_f.close()
+
+
+hist_list = list(hist.keys())
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -107,22 +115,22 @@ class Ui_MainWindow(object):
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.stationLabel2 = QtWidgets.QLabel('Station', self.tab_2)
-        self.stationLabel2.setObjectName("gasLabel2")
-        self.stationLabel2.setGeometry(QtCore.QRect(10, 65, 171, 51))
-        self.stationLabel2.setAlignment(QtCore.Qt.AlignCenter)
-        self.gasLabel2 = QtWidgets.QLabel('Gas', self.tab_2)
+#        self.stationLabel2 = QtWidgets.QLabel('Station', self.tab_2)
+#        self.stationLabel2.setObjectName("gasLabel2")
+#        self.stationLabel2.setGeometry(QtCore.QRect(10, 65, 171, 51))
+#        self.stationLabel2.setAlignment(QtCore.Qt.AlignCenter)
+        self.gasLabel2 = QtWidgets.QLabel('Measurement', self.tab_2)
         self.gasLabel2.setObjectName("gasLabel2")
         self.gasLabel2.setGeometry(QtCore.QRect(130, 65, 171, 51))
         self.gasLabel2.setAlignment(QtCore.Qt.AlignCenter)
-        self.comboBox_3 = CheckableComboBox(self.frame_2)
-        self.comboBox_3.setGeometry(QtCore.QRect(20, 20, 104, 26))
-        self.comboBox_3.setObjectName("comboBox_3")
-        self.comboBox_3.addItem("")
+#        self.comboBox_3 = CheckableComboBox(self.frame_2)
+#        self.comboBox_3.setGeometry(QtCore.QRect(20, 20, 104, 26))
+#        self.comboBox_3.setObjectName("comboBox_3")
+#        self.comboBox_3.addItem("")
         self.comboBox_4 = CheckableComboBox(self.frame_2)
-        self.comboBox_4.setGeometry(QtCore.QRect(140, 20, 104, 26))
+        self.comboBox_4.setGeometry(QtCore.QRect(20, 20, 200, 26))
         self.comboBox_4.setObjectName("comboBox_4")
-        self.comboBox_4.addItem("")
+        self.comboBox_4.addItems(hist_list)
 
         botLimit2 = QDateTime(1975, 1, 1, 00, 00)
         topLimit2 = QDateTime(2017, 1, 1, 00, 00)
@@ -132,64 +140,40 @@ class Ui_MainWindow(object):
         self.dateTimeEdit_2.setDateTimeRange(botLimit2, topLimit2)
         self.dateTimeEdit_2.setGeometry(QtCore.QRect(300, 20, 110, 24))
         self.dateTimeEdit_2.setObjectName("dateTimeEdit_2")
+        
         self.pushButton_2 = QtWidgets.QPushButton(self.frame_2)
         self.pushButton_2.setGeometry(QtCore.QRect(590, 10, 113, 32))
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.clicked.connect(self.plot_historical)
+
         self.dateTimeEdit_3 = QtWidgets.QDateTimeEdit(self.frame_2)
         self.dateTimeEdit_3.setDisplayFormat("yyyy")
         self.dateTimeEdit_3.setGeometry(QtCore.QRect(430, 20, 110, 24))
         self.dateTimeEdit_3.setObjectName("dateTimeEdit_3")
         self.dateTimeEdit_3.setDateTimeRange(botLimit2, topLimit2)
+        
         self.graphWidget_2 = MplWidget(self.tab_2)
         self.graphWidget_2.setGeometry(QtCore.QRect(30, 160, 1021, 441))
         self.graphWidget_2.setObjectName("graphWidget_2")
+        
         self.tabWidget.addTab(self.tab_2, "")
         self.tab_3 = QtWidgets.QWidget()
+        
         self.tab_3.setObjectName("tab_3")
-        self.frame_3 = QtWidgets.QFrame(self.tab_3)
-        self.frame_3.setGeometry(QtCore.QRect(30, 80, 721, 61))
-        self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_3.setObjectName("frame_3")
-        self.stationLabel3 = QtWidgets.QLabel('Station', self.tab_3)
-        self.stationLabel3.setObjectName("gasLabel3")
-        self.stationLabel3.setGeometry(QtCore.QRect(10, 65, 171, 51))
-        self.stationLabel3.setAlignment(QtCore.Qt.AlignCenter)
-        self.gasLabel3 = QtWidgets.QLabel('Gas', self.tab_3)
-        self.gasLabel3.setObjectName("gasLabel3")
-        self.gasLabel3.setGeometry(QtCore.QRect(130, 65, 171, 51))
-        self.gasLabel3.setAlignment(QtCore.Qt.AlignCenter)
-        self.comboBox_5 = CheckableComboBox(self.frame_3)
-        self.comboBox_5.setGeometry(QtCore.QRect(20, 20, 104, 26))
-        self.comboBox_5.setObjectName("comboBox_5")
-        self.comboBox_5.addItem("")
-        self.comboBox_6 = CheckableComboBox(self.frame_3)
-        self.comboBox_6.setGeometry(QtCore.QRect(140, 20, 104, 26))
-        self.comboBox_6.setObjectName("comboBox_6")
-        self.comboBox_6.addItem("")
-        self.dateTimeEdit_4 = QtWidgets.QDateTimeEdit(self.frame_3)
-        self.dateTimeEdit_4.setGeometry(QtCore.QRect(300, 20, 110, 24))
-        self.dateTimeEdit_4.setObjectName("dateTimeEdit_4")
-        self.dateTimeEdit_4.setDisplayFormat("yyyy")
-        self.pushButton_3 = QtWidgets.QPushButton(self.frame_3)
-        self.pushButton_3.setGeometry(QtCore.QRect(590, 10, 113, 32))
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.dateTimeEdit_5 = QtWidgets.QDateTimeEdit(self.frame_3)
-        self.dateTimeEdit_5.setGeometry(QtCore.QRect(430, 20, 110, 24))
-        self.dateTimeEdit_5.setObjectName("dateTimeEdit_5")
-        self.dateTimeEdit_5.setDisplayFormat("yyyy")
+       
         self.label_3 = QtWidgets.QLabel('Center', self.tab_3)
-        self.label_3.setGeometry(QtCore.QRect(260, 10, 251, 51))
+        self.label_3.setGeometry(QtCore.QRect(260, 10, 251, 20))
         self.label_3.setObjectName("label_3")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
 
-        self.graphHist = MplWidget(self.tab_3)
-        self.graphHist.setGeometry(QtCore.QRect(30, 160, 360, 341))
-        self.graphHist.setObjectName("graphHist")
+        self.graphComparison = MplWidgetDouble(self.tab_3)
+        self.graphComparison.setGeometry(QtCore.QRect(30, 30, 1021, 621))
+        self.graphComparison.setObjectName("graphComparison")
 
-        self.graphReal = MplWidget(self.tab_3)
-        self.graphReal.setGeometry(QtCore.QRect(400, 160, 360, 341))
-        self.graphReal.setObjectName("graphReal")
+
+#        self.graphReal = MplWidget(self.tab_3)
+#        self.graphReal.setGeometry(QtCore.QRect(400, 160, 360, 341))
+#        self.graphReal.setObjectName("graphReal")
 
         self.tabWidget.addTab(self.tab_3, "")
         self.tab_4 = QtWidgets.QWidget()
@@ -222,7 +206,6 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "Plot"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Historical"))
 
-        self.pushButton_3.setText(_translate("MainWindow", "Plot"))
         self.label_3.setText(_translate("MainWindow", "Compare Historical and Real-Time Data"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Compare"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Averages"))
@@ -243,36 +226,44 @@ class Ui_MainWindow(object):
         start_date = self.controller.datetime_to_ISO_string(start_date)
         end_date = self.controller.datetime_to_ISO_string(end_date)
         try:
-            aggregation = self.aggregationCheckBox.currentData()[0]
+            aggregation = str(self.aggregationCheckBox.currentText())
         except:
             aggregation = 'NONE'
         interval = '30'
 
         data = self.controller.handle_realtime(start_date=start_date, end_date=end_date, table_variables=table_variables,
                 interval=interval, aggregation=aggregation, use_defaults=False, save_defaults=False)
-        print(data.head())
+       
+        # Clear previous plots
         self.graphWidget.canvas.ax.cla()
         data.plot(ax=self.graphWidget.canvas.ax)
-
         self.graphWidget.canvas.draw()
 
+        self.graphComparison.canvas.ax.cla()
+        data.plot(ax=self.graphComparison.canvas.ax)
+        self.graphComparison.canvas.draw()
+
     def plot_historical(self):
-        data = self.controller.handle_historical(use_defaults=True)
+
+        start_year = self.controller.get_year(self.dateTimeEdit_2.date())
+        end_year = self.controller.get_year(self.dateTimeEdit_3.date())
+        years = list(range(start_year, end_year))
+
+        measurements = self.comboBox_4.currentData()
+        categories = [hist[m] for m in measurements]
+
+        
+
+        data = self.controller.handle_historical(years=years, categories=categories, use_defaults=False, save_defaults=False)
+        self.graphWidget_2.canvas.ax.cla()
         data.plot(ax=self.graphWidget_2.canvas.ax)
-    
-    def plot_comparison(self):
-        realtime_data = self.controller.handle_realtime(use_defaults=True)
-        historical_data = self.controller.handle_historical(use_defaults=True)
+        self.graphWidget_2.canvas.draw()
+        # We plot the same plot for the comparison tab
+        self.graphComparison.canvas.ax2.cla()
+        data.plot(ax=self.graphComparison.canvas.ax2)
+        self.graphComparison.canvas.draw()
 
-        realtime_data.plot(ax=self.graphReal.canvas.ax)
-        historical_data.plot(ax=self.graphHist.canvas.ax)
 
-    def plot_comparison(self):
-        realtime_data = self.controller.handle_realtime(use_defaults=True)
-        historical_data = self.controller.handle_historical(use_defaults=True)
-
-        realtime_data.plot(ax=self.graphReal.canvas.ax)
-        historical_data.plot(ax=self.graphHist.canvas.ax)
     
 
 # Ensure using PyQt5 backend
@@ -295,6 +286,26 @@ class MplWidget(QtWidgets.QWidget):
         self.vbl = QtWidgets.QVBoxLayout()         # Set box for plotting
         self.vbl.addWidget(self.canvas)
         self.setLayout(self.vbl)
+
+# Matplotlib canvas class to create figure
+class MplCanvasDouble(Canvas):
+    def __init__(self):
+        self.fig = Figure()
+        self.ax = self.fig.add_subplot(211)
+        self.ax2 = self.fig.add_subplot(212)
+        Canvas.__init__(self, self.fig)
+        Canvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        Canvas.updateGeometry(self)
+
+# Matplotlib widget
+class MplWidgetDouble(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        QtWidgets.QWidget.__init__(self, parent)   # Inherit from QWidget
+        self.canvas = MplCanvasDouble()                  # Create canvas object
+        self.vbl = QtWidgets.QVBoxLayout()         # Set box for plotting
+        self.vbl.addWidget(self.canvas)
+        self.setLayout(self.vbl)
+
 
 
 class CheckableComboBox(QtWidgets.QComboBox):

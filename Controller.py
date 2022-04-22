@@ -76,14 +76,12 @@ class Controller:
         with open(path, 'w') as outfile:
             json.dump(defaults, outfile)
     
-    def create_ISO_timestamp(self, date: QtCore.QDate):
+    def get_year(self, date: QtCore.QDate):
         """
         Takes a QDate object and returns an ISO formatted timestamp for realtime API calls
         """
         year, month, day = date.getDate()
-        hour, minute, second, millisecond = 12, 0, 0, 0
-        iso_date = datetime(year, month, day, hour, minute, second, millisecond)
-        return iso_date.isoformat(timespec='milliseconds')
+        return year
     
     def datetime_to_ISO_string(self, date: QtCore.QDateTime):
         """
