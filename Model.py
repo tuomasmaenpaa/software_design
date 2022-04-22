@@ -33,6 +33,7 @@ class Model:
         # Clear NaN's and null values from dataframe
         df.fillna(method='ffill', inplace=True)
         df.fillna(method='bfill', inplace=True)
+        df.fillna(0, inplace=True)
         return df
 
     def plot_historical(self, data: pd.DataFrame):

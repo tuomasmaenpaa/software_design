@@ -6,6 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+from tracemalloc import start
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPalette, QFontMetrics, QStandardItem
 from PyQt5.QtGui import *
@@ -71,7 +72,7 @@ class Ui_MainWindow(object):
         self.dateTimeEdit.setGeometry(QtCore.QRect(260, 20, 110, 24))
         self.dateTimeEdit.setObjectName("dateTimeEdit")
 
-        aggregations = ["None", "Minimum", "Maximum", "Average"]
+        aggregations = ["NONE", "MIN", "MAX", "ARITHMETIC"]
         self.aggregationCheckBox = QtWidgets.QComboBox(self.frame)
         self.aggregationCheckBox.setGeometry(QtCore.QRect(490, 20, 104, 26))
         self.aggregationCheckBox.addItems(aggregations)
@@ -84,9 +85,12 @@ class Ui_MainWindow(object):
         self.dateTimeEdit1_2.setGeometry(QtCore.QRect(380, 20, 110, 24))
         self.dateTimeEdit1_2.setObjectName("dateTimeEdit1_2")
         self.dateTimeEdit1_2.setDateTimeRange(botLimit, topLimit)
+        
         self.pushButton = QtWidgets.QPushButton(self.frame)
         self.pushButton.setGeometry(QtCore.QRect(590, 10, 113, 32))
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.plot_realtime)
+
         self.graphWidget = MplWidget(self.tab)
         self.graphWidget.setGeometry(QtCore.QRect(30, 160, 1021, 441))
         self.graphWidget.setObjectName("graphWidget")
@@ -227,8 +231,30 @@ class Ui_MainWindow(object):
         self.controller = controller
 
     def plot_realtime(self):
-        data = self.controller.handle_realtime(use_defaults=True)
+
+        stations = self.comboBoxStation.currentData()
+        gases = self.comboBoxGas.currentData()
+
+        table_variables = self.controller.get_tablevariables(stations, gases)
+
+        start_date = self.dateTimeEdit.dateTime()
+        end_date = self.dateTimeEdit1_2.dateTime()
+
+        start_date = self.controller.datetime_to_ISO_string(start_date)
+        end_date = self.controller.datetime_to_ISO_string(end_date)
+        try:
+            aggregation = self.aggregationCheckBox.currentData()[0]
+        except:
+            aggregation = 'NONE'
+        interval = '30'
+
+        data = self.controller.handle_realtime(start_date=start_date, end_date=end_date, table_variables=table_variables,
+                interval=interval, aggregation=aggregation, use_defaults=False, save_defaults=False)
+        print(data.head())
+        self.graphWidget.canvas.ax.cla()
         data.plot(ax=self.graphWidget.canvas.ax)
+
+        self.graphWidget.canvas.draw()
 
     def plot_historical(self):
         data = self.controller.handle_historical(use_defaults=True)

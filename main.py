@@ -25,7 +25,7 @@ if __name__ == "__main__":
     model = Model(dataf)
     controller = Controller(model)
     ui.setup_controller(controller)
-    ui.plot_realtime()
+    #ui.plot_realtime()
     ui.plot_historical()
     ui.plot_comparison()
     #controller.handle_historical(True, False)
