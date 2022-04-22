@@ -7,8 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from tracemalloc import start
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QPalette, QFontMetrics, QStandardItem
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtGui import QFontMetrics, QStandardItem
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from matplotlib.figure import Figure

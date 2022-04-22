@@ -2,7 +2,6 @@ from pathlib import Path
 import json
 from datetime import datetime
 from PyQt5 import QtCore
-from numpy import save
 from Model import Model
 
 class Controller:

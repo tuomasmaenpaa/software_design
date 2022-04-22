@@ -1,9 +1,6 @@
-from distutils.command.clean import clean
 from DataFetcher import DataFetcher
-#from MainWindow import Ui_MainWindow
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+
 
 class Model:
     def __init__(self, datafetcher: DataFetcher):

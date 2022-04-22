@@ -7,10 +7,7 @@ from DataFetcher import DataFetcher
 from Model import Model
 from MainWindow import Ui_MainWindow
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as Canvas
-import matplotlib
+from PyQt5 import QtWidgets
 
 if __name__ == "__main__":
 
