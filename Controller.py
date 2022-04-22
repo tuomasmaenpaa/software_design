@@ -11,7 +11,9 @@ class Controller:
 
     def handle_realtime(self, start_date='', end_date='', table_variables=[], interval='', 
                         aggregation='', use_defaults=True, save_defaults=False): 
-
+        """
+        Retrieves data based on user selection
+        """
 
         # We only save new defaults if we are using new values, not the old defaults       
         if save_defaults & (not use_defaults):
@@ -32,6 +34,9 @@ class Controller:
         
 
     def handle_historical(self, years=[], categories=[], use_defaults=True, save_defaults=False):
+        """
+        Retrieves data based on user selection
+        """
 
         if save_defaults & (not use_defaults):
             self.save_historical_defaults(years, categories)

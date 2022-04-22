@@ -274,6 +274,10 @@ class Ui_MainWindow(object):
         self.controller = controller
 
     def plot_realtime(self):
+        """
+        Gets user's selected values from UI-components and initiates API-call process
+        based on those values
+        """
 
         use_defaults = self.defaultCheck.isChecked()
         save_defaults = self.defaultSaveCheck.isChecked()
@@ -323,6 +327,10 @@ class Ui_MainWindow(object):
         self.graphComparison.canvas.draw()
 
     def plot_historical(self):
+        """
+        Gets user's selected values from UI-components and initiates API-call process
+        based on those values
+        """
         
         use_defaults = self.defaultCheck2.isChecked()
         save_defaults = self.defaultSaveCheck2.isChecked()
