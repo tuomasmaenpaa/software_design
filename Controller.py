@@ -22,12 +22,12 @@ class Controller:
             path = Path(__file__).parent / 'opt' / 'realtime_default.json'
             with open(path, 'r') as infile:
                 defaults = json.load(infile)
-                self.model.fetch_realtime(defaults['start_date'], 
-                defaults['end_date'], defaults['table_variables'],
-                defaults['interval'], defaults['aggregation'])
+                return self.model.fetch_realtime(defaults['start_date'], 
+                        defaults['end_date'], defaults['table_variables'],
+                        defaults['interval'], defaults['aggregation'])
         else:
-            self.model.fetch_realtime(start_date, end_date, table_variables,
-            interval, aggregation)
+            return self.model.fetch_realtime(start_date, end_date, table_variables,
+                    interval, aggregation)
         
 
     def handle_historical(self, years=[], categories=[], use_defaults=True, save_defaults=False):
@@ -39,9 +39,9 @@ class Controller:
             path = Path(__file__).parent / 'opt' / 'hist_default.json'
             with open(path, 'r') as infile:
                 defaults = json.load(infile)
-                self.model.fetch_historical(defaults['years'], defaults['categories'])
+                return self.model.fetch_historical(defaults['years'], defaults['categories'])
         else:
-            self.model.fetch_historical(years, categories)    
+            return self.model.fetch_historical(years, categories)    
 
 
     def save_historical_defaults(self, years: list, categories: list):
